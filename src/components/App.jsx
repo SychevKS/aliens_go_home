@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
+import Canvas from './Canvas';
 
 function App() {
     
-    const message = useSelector(state => state.message)
+    //const message = useSelector(state => state.message)
 
     return (
-        <div className="App">
-            <h1>{message}</h1>
-        </div>
+        <Canvas />
     )
 }
 
