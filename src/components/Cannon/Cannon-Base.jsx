@@ -1,7 +1,7 @@
 import React from 'react';
-import { pathFromBezierCurve } from '../../utils/formula';
+import { pathFromBezierCurve } from '../../utils/formulas';
 
-export default function CannonBase(props) {
+export default function CannonBase() {
     const cannonBaseStyle = {
         fill: '#a16012',
         stroke: '#75450e',

@@ -1,18 +1,32 @@
-import PropTypes from 'prop-types';
-//import { useSelector } from 'react-redux';
-import Canvas from './Canvas';
+import { useState, useEffect } from 'react' 
+import { useSelector, useDispatch } from 'react-redux';
+import { moveObject } from '../redux/slice';
 
-function App() {
+import Canvas from './Canvas';
+import { getCanvasPosition } from '../utils/formulas';
+
+
+const App = () => {
+
+    const angle = useSelector(state => state.angle);
+    const dispatch = useDispatch();
+
+    const [canvasMousePosition, setCanvasMousePosition] = useState({x: 0, y: 0});
+    useEffect(() => {
+        dispatch(moveObject(canvasMousePosition))
+    }, [canvasMousePosition])
     
-    //const message = useSelector(state => state.message)
+
+    const trackMouse = (event) => {
+        setCanvasMousePosition(getCanvasPosition(event));
+    }
 
     return (
-        <Canvas />
+        <Canvas
+            angle={angle}
+            trackMouse={trackMouse}
+        />
     )
-}
-
-App.propTypes = {
-  message: PropTypes.string.isRequired,
 }
 
 export default App

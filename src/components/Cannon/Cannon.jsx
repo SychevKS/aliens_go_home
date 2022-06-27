@@ -1,10 +1,10 @@
 import CannonPipe from './Cannon-Pipe';
 import CannonBase from './Cannon-Base';
 
-export default function Cannon() {
+export default function Cannon({angle}) {
     return(
         <>
-            <CannonPipe rotation={45} />
+            <CannonPipe rotation={angle} />
             <CannonBase />
         </>
     )
