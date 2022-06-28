@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react' 
 import { useSelector, useDispatch } from 'react-redux';
-import { moveObject, startGame } from '../redux/slice';
+import { moveObject, startGame, shoot } from '../redux/slice';
 
 import Canvas from './Canvas';
 import { getCanvasPosition } from '../utils/formulas';
@@ -12,13 +12,14 @@ const App = () => {
     const gameState = useSelector(state => state.gameState);
     const dispatch = useDispatch();
 
-    const startGameDispatch = useCallback(()=> {
-        dispatch(startGame())
-    }, [dispatch])
-
     const [canvasMousePosition, setCanvasMousePosition] = useState({x: 0, y: 0});
     useEffect(() => {
-        dispatch(moveObject(canvasMousePosition))
+        const interval = setInterval(() => {
+            dispatch(moveObject(canvasMousePosition))
+        }, 10)
+        return () => {
+            clearInterval(interval);
+        }
     }, [canvasMousePosition])
 
     useEffect(() => {
@@ -29,7 +30,14 @@ const App = () => {
         };
         window.onresize();
     })
-    
+
+    const startGameDispatch = useCallback(()=> {
+        dispatch(startGame())
+    }, [dispatch])
+
+    const shootDispatch = useCallback(()=> {
+        dispatch(shoot(canvasMousePosition))
+    }, [dispatch, canvasMousePosition])
 
     const trackMouse = (event) => {
         setCanvasMousePosition(getCanvasPosition(event));
@@ -37,10 +45,12 @@ const App = () => {
 
     return (
         <Canvas
+            mousePosition={canvasMousePosition}
             angle={angle}
             trackMouse={trackMouse}
             gameState={gameState}
             onStartGame={startGameDispatch}
+            shoot={shootDispatch}
         />
     )
 }

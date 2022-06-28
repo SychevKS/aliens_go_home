@@ -12,7 +12,7 @@ import StartGame from './StartGame';
 import Title from './Title';
 
 
-const Canvas = ({angle, trackMouse, gameState, onStartGame}) => {
+const Canvas = ({mousePosition, angle, trackMouse, gameState, onStartGame, shoot}) => {
 
     const gameHeight = 1200;
     const viewBox = [window.innerWidth / -2, 100 - gameHeight, window.innerWidth, gameHeight];
@@ -33,12 +33,13 @@ const Canvas = ({angle, trackMouse, gameState, onStartGame}) => {
             ))}
         </g>
     )
-
+    //console.log(gameState.flyingObjects)
     return (  
         <svg
             id="aliens-go-home-canvas"
             onMouseMove={trackMouse}
             viewBox={viewBox}
+            onClick={shoot}
         >
             <defs>
                 <filter id="shadow">
@@ -48,8 +49,13 @@ const Canvas = ({angle, trackMouse, gameState, onStartGame}) => {
             
             <Sky />
             <Ground/>
+            {gameState.cannonBalls.map(item => (
+                <CannonBall
+                    key={item.id}
+                    position={item.position}
+                />
+            ))}
             <Cannon angle={angle}/>
-            <CannonBall position={{x: 0, y: -100}}/>
             <CurrentScore score={15} />
             <Heart position={{x: -300, y: 35}} />
 
@@ -73,7 +79,8 @@ Canvas.propTypes = {
         })).isRequired,
     }).isRequired,
     trackMouse: PropTypes.func.isRequired,
-    startGame: PropTypes.func.isRequired,
+    onStartGame: PropTypes.func.isRequired,
+    shoot: PropTypes.func.isRequired,
 }
 
 export default Canvas;
