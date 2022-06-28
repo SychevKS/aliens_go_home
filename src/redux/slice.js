@@ -3,6 +3,7 @@ import { calculateAngle } from "../utils/formulas";
 import createFlyingObjects from "./reducers/createFlyingObjects";
 import shootBalls from "./reducers/shootBalls";
 import moveBalls from "./reducers/moveBalls";
+import checkCollisions from "./reducers/checkCollision";
 
 const initialGameState = {
     started: false,
@@ -23,12 +24,34 @@ const slice = createSlice({
     initialState,
     reducers: {
         moveObject: (state, action) => {
-                state.gameState = createFlyingObjects(state.gameState);
-                state.gameState.flyingObjects = state.gameState.flyingObjects.filter(item => 
-                    (new Date().getTime() - item.createdAt) < 4000
-                );
-                state.angle = calculateAngle(0, 0, action.payload.x, action.payload.y);
-                state.gameState.cannonBalls = moveBalls(state.gameState.cannonBalls);
+
+            const objectsDestroyed = checkCollisions(state.gameState.cannonBalls, state.gameState.flyingObjects);
+            const cannonBallsDestroyed = objectsDestroyed.map(object => (object.cannonBallId));
+            const flyingDiscsDestroyed = objectsDestroyed.map(object => (object.flyingDiscId));
+
+            state.gameState = createFlyingObjects(state.gameState);
+            state.gameState.flyingObjects = state.gameState.flyingObjects.filter(item => 
+                (new Date().getTime() - item.createdAt) < 4000
+            );
+            state.angle = calculateAngle(0, 0, action.payload.x, action.payload.y);
+            state.gameState.cannonBalls = moveBalls(state.gameState.cannonBalls);
+            state.gameState.cannonBalls = state.gameState.cannonBalls.filter(cannonBall => (cannonBallsDestroyed.indexOf(cannonBall.id)));
+            state.gameState.flyingObjects = state.gameState.flyingObjects.filter(flyingDisc => (flyingDiscsDestroyed.indexOf(flyingDisc.id)));
+
+            const lostLife = state.gameState.flyingObjects.length > state.gameState.flyingObjects.length;
+            let lives = state.gameState.lives;
+            if (lostLife) {
+                lives--;
+            }
+            state.gameState.lives = lives;
+
+            const started = lives > 0;
+            if (!started) {
+                state.gameState.flyingObjects = [];
+                state.gameState.cannonBalls = [];
+                state.gameState.lives = 3;
+            }
+
         },
         startGame: (state) => {state.gameState.started = true},
         shoot: (state, action) => {state.gameState = shootBalls(state.gameState, action)},

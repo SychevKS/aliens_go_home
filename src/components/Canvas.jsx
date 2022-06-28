@@ -27,13 +27,22 @@ const Canvas = ({mousePosition, angle, trackMouse, gameState, onStartGame, shoot
         <g>
             {gameState.flyingObjects.map(flyingObject => (
                 <FlyingObject
-                key={flyingObject.id}
-                position={flyingObject.position}
+                    key={flyingObject.id}
+                    position={flyingObject.position}
                 />
             ))}
         </g>
     )
-    //console.log(gameState.flyingObjects)
+
+    const lives = [];
+    for (let i = 0; i < gameState.lives; i++) {
+        const heartPosition = {
+            x: -180 - (i * 70),
+            y: 35
+        };
+        lives.push(<Heart key={i} position={heartPosition}/>);
+    }
+
     return (  
         <svg
             id="aliens-go-home-canvas"
@@ -57,9 +66,8 @@ const Canvas = ({mousePosition, angle, trackMouse, gameState, onStartGame, shoot
             ))}
             <Cannon angle={angle}/>
             <CurrentScore score={15} />
-            <Heart position={{x: -300, y: 35}} />
-
             {gameState.started ? onGame : offGame}
+            {lives}
         </svg>
     );
 };
