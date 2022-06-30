@@ -65,7 +65,7 @@ const Canvas = ({mousePosition, angle, trackMouse, gameState, onStartGame, shoot
                 />
             ))}
             <Cannon angle={angle}/>
-            <CurrentScore score={15} />
+            <CurrentScore score={gameState.kills} />
             {gameState.started ? onGame : offGame}
             {lives}
         </svg>

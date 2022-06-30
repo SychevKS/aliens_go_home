@@ -5,6 +5,7 @@ const CurrentScore = ({score}) => {
         fontFamily: '"Joti One", cursive',
         fontSize: 80,
         fill: '#d6d33e',
+        userSelect: 'none',
     };
     return (
         <g filter="url(#shadow)">

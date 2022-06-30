@@ -51,6 +51,7 @@ const App = () => {
             gameState={gameState}
             onStartGame={startGameDispatch}
             shoot={shootDispatch}
+            onClick={(event) => event.preventDefault()}
         />
     )
 }
