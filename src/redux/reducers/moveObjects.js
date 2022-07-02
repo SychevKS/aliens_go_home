@@ -18,14 +18,11 @@ export default (state, action) => {
     
     flyingObjects = flyingObjects.filter(flyingDisc => (flyingDiscsDestroyed.indexOf(flyingDisc.id)))
 
-    const start = state.gameState.lives != 3 && lives <= 0; 
-    console.log(state.gameState.lives != 3)
-
     return {
         angle: calculateAngle(0, 0, action.payload.x, action.payload.y),
         gameState: {
             ...gameState,
-            started: start,
+            started: state.gameState.started && lives > 0,
             lives: lives > 0 ? lives : 3,
             flyingObjects: lives > 0 ? flyingObjects : [],
             cannonBalls:  lives > 0 ? cannonBalls : [],

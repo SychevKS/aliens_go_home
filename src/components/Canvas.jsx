@@ -10,6 +10,7 @@ import FlyingObject from './flyingObject/FlyingObject';
 import Heart from './Heart';
 import StartGame from './StartGame';
 import Title from './Title';
+import Cursor from './Cursor';
 
 
 const Canvas = ({mousePosition, angle, trackMouse, gameState, onStartGame, shoot}) => {
@@ -68,6 +69,7 @@ const Canvas = ({mousePosition, angle, trackMouse, gameState, onStartGame, shoot
             <CurrentScore score={gameState.kills} />
             {gameState.started ? onGame : offGame}
             {lives}
+            <Cursor mousePosition={mousePosition}/>
         </svg>
     );
 };

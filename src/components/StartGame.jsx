@@ -11,7 +11,6 @@ const StartGame = ({onClick}) => {
         ry: 10, // border радиус
         style: {
         fill: 'transparent',
-        cursor: 'pointer',
         },
         onClick: onClick,
     };
@@ -24,7 +23,6 @@ const StartGame = ({onClick}) => {
         fontFamily: '"Joti One", cursive',
         fontSize: 60,
         fill: '#e3e3e3',
-        cursor: 'pointer',
         },
         onClick: onClick,
     };

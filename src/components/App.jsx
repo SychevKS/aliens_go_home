@@ -4,6 +4,7 @@ import { moveObject, startGame, shoot } from '../redux/slice';
 
 import Canvas from './Canvas';
 import { getCanvasPosition } from '../utils/formulas';
+import Cursor from './Cursor';
 
 
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
 
     return (
         <Canvas
+            style={{ zIndex: 1}}
             mousePosition={canvasMousePosition}
             angle={angle}
             trackMouse={trackMouse}
