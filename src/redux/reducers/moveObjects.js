@@ -3,7 +3,7 @@ import moveBalls from "./moveBalls";
 import createFlyingObjects from "./createFlyingObjects";
 import { calculateAngle } from "../../utils/formulas";
 
-export default (state, action) => {
+export default function moveObject(state, action) {
     const gameState = createFlyingObjects(state.gameState);
     const objectsDestroyed = checkCollisions(state.gameState.cannonBalls, state.gameState.flyingObjects);
    

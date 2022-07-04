@@ -4,7 +4,6 @@ import { moveObject, startGame, shoot } from '../redux/slice';
 
 import Canvas from './Canvas';
 import { getCanvasPosition } from '../utils/formulas';
-import Cursor from './Cursor';
 
 
 const App = () => {
@@ -14,6 +13,8 @@ const App = () => {
     const dispatch = useDispatch();
 
     const [canvasMousePosition, setCanvasMousePosition] = useState({x: 0, y: 0});
+
+    
     useEffect(() => {
         const interval = setInterval(() => {
             dispatch(moveObject(canvasMousePosition))

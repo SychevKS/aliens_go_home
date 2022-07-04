@@ -18,5 +18,5 @@ code {
 html, body {
   overflow: hidden;
   height: 100%;
-  cursor: none;
+  cursor: url('../../public/focus.png') 16 16, default;
 }
