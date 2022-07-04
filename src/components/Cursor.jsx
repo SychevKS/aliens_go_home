@@ -11,8 +11,8 @@ export default function Cursor({mousePosition}) {
             }}
             cx={mousePosition.x}
             cy={mousePosition.y}
-            rx="16"
-            ry="16"
+            rx="8"
+            ry="8"
         />
     )
 }

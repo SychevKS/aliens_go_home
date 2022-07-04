@@ -16,13 +16,14 @@ const App = () => {
 
     
     useEffect(() => {
+        console.log('render')
         const interval = setInterval(() => {
             dispatch(moveObject(canvasMousePosition))
         }, 10)
         return () => {
             clearInterval(interval);
         }
-    }, [canvasMousePosition])
+    })
 
     useEffect(() => {
         window.onresize = () => {
